@@ -22,7 +22,8 @@ export default new Vuex.Store({
     purchaseSuccess: false,
     errorMsg: '',
     chatMessages: [],
-    searchResults: []
+    searchResults: [],
+    myMovie:{}
   },
   mutations: {
     SOCKET_MESSAGESFROMSERVER(state, messages) {
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     },
     SET_LOGOUT() {
       localStorage.clear()
+    },
+    SET_MY_MOVIE(state, myMovie) {
+      state.myMovie = myMovie
     }
     
   },
@@ -156,6 +160,30 @@ export default new Vuex.Store({
         
         
         context.commit("SET_PRICE", response.data)
+        
+        
+      } catch (error) {
+        Swal.fire(error.response.data.message)
+        
+        console.log(error.response.data.message)
+      }
+    },
+
+    
+    async getMyMovie(context, imdbId) {
+      try {
+         
+        const response = await axios.get(`${BASE_URL}/movies/purchased/${imdbId}`, {
+          headers: {
+            access_token: localStorage.access_token
+
+          }
+        })
+
+        
+        
+        
+        context.commit("SET_MY_MOVIE", response.data)
         
         
       } catch (error) {

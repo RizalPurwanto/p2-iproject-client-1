@@ -6,6 +6,8 @@ import VueRouter from "vue-router";
  import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import SearchResult from '../views/SearchResult.vue'
+import Register from '../views/Register.vue'
+import Watch from '../views/Watch.vue'
 
 
 Vue.use(VueRouter);
@@ -27,11 +29,11 @@ const routes = [
     name: "Login",
     component: Login,
   },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   component: Register,
-  // },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+  },
   {
     path: "/movies/:imdbId",
     name: "Details",
@@ -41,6 +43,11 @@ const routes = [
     path: "/search",
     name: "Search",
     component: SearchResult,
+  },
+  {
+    path: "/watch/:imdbId",
+    name: "Watch",
+    component: Watch,
   },
   // {
   //   path: "/about",
