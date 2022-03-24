@@ -77,6 +77,21 @@ export default new Vuex.Store({
     
   },
   actions: {
+    async register(context, userData) {
+      try {
+        const body = { 
+          username: userData.username,
+          email: userData.email,
+          password: userData.password
+        }
+        const response = await axios.post(`${BASE_URL}/register`, body)
+        Swal.fire(response.data.message)
+        router.push('/login')
+      } catch (error) {
+        Swal.fire(error.response.data.message)
+      }
+    },
+
     async login(context, userData) {
       try {
         const body =  {

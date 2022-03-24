@@ -4,7 +4,7 @@
       <div class="flex justify-center">
         <form
           action=""
-          @submit.prevent="login"
+          @submit.prevent="register"
           class="
             bg-black
             shadow-md
