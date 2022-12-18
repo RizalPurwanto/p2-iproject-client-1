@@ -3,9 +3,9 @@ import Vuex from "vuex";
 import router from "../router/index"
 import axios from 'axios'
 import Swal from 'sweetalert2'
-const BASE_URL = "https://iproject2.herokuapp.com"
+// const BASE_URL = "https://iproject2.herokuapp.com"
 //const LOCAL_URL = "http://localhost:3000"
-
+const BASE_URL = "https://p2-iproject-server-1-production.up.railway.app"
 
 Vue.use(Vuex);
 
@@ -22,7 +22,8 @@ export default new Vuex.Store({
     purchaseSuccess: false,
     errorMsg: '',
     chatMessages: [],
-    searchResults: []
+    searchResults: [],
+    myMovie:{}
   },
   mutations: {
     SOCKET_MESSAGESFROMSERVER(state, messages) {
@@ -69,10 +70,28 @@ export default new Vuex.Store({
     },
     SET_LOGOUT() {
       localStorage.clear()
+    },
+    SET_MY_MOVIE(state, myMovie) {
+      state.myMovie = myMovie
     }
     
   },
   actions: {
+    async register(context, userData) {
+      try {
+        const body = { 
+          username: userData.username,
+          email: userData.email,
+          password: userData.password
+        }
+        const response = await axios.post(`${BASE_URL}/register`, body)
+        Swal.fire(response.data.message)
+        router.push('/login')
+      } catch (error) {
+        Swal.fire(error.response.data.message)
+      }
+    },
+
     async login(context, userData) {
       try {
         const body =  {
@@ -156,6 +175,30 @@ export default new Vuex.Store({
         
         
         context.commit("SET_PRICE", response.data)
+        
+        
+      } catch (error) {
+        Swal.fire(error.response.data.message)
+        
+        console.log(error.response.data.message)
+      }
+    },
+
+    
+    async getMyMovie(context, imdbId) {
+      try {
+         
+        const response = await axios.get(`${BASE_URL}/movies/purchased/${imdbId}`, {
+          headers: {
+            access_token: localStorage.access_token
+
+          }
+        })
+
+        
+        
+        
+        context.commit("SET_MY_MOVIE", response.data)
         
         
       } catch (error) {
@@ -285,7 +328,7 @@ export default new Vuex.Store({
          
         
         
-        console.log(response.data, "INI HASIL ADD ")
+        //console.log(response.data, "INI HASIL ADD ")
         //  context.commit("SET_PAYMENT_TOKEN", response.data.token)
         //  console.log(this.state.paymentToken, "INI STATE PAYMENT TOKEN")
         context.commit("SET_PURCHASE_SUCCESS", true)

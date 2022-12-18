@@ -1,20 +1,25 @@
 <template>
-  <div class="h-screen">
+<div class="h-screen mx-2 my2 relative">
     <navbar v-if="pageName !== 'Login' && pageName !== 'Register' "></navbar>
 
     <router-view></router-view>
+    <!-- <HFooter class="bottom-0 "></HFooter> -->
   </div>
+  
+  
 </template>
 
 <script>
 //import HelloWorld from "./components/HelloWorld.vue";
 
 import Navbar from "./components/Navbar.vue";
+//import HFooter from 'vue-hacktiv8-footer'
 export default {
   name: "App",
   components: {
     //HelloWorld,
     Navbar,
+    //HFooter
   },
   computed: {
       pageName() {
