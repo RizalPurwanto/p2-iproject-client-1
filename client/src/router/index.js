@@ -69,7 +69,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next)=>{
   console.log(from, to,  "INI DARI ROUTER NAVGARD")
   console.log(localStorage.access_token, "INI ACC TOKEN")
-  if(to.name !== "Login" && to.name !== "Register" && !localStorage.access_token) {
+  if((to.name !== "Login" && to.name !== "Register") && !localStorage.access_token) {
     next('/login')
   }else if(to.name == "Login" && localStorage.access_token) {
     next('/')

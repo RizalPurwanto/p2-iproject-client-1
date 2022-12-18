@@ -378,8 +378,7 @@ export default {
       await this.$router.push(path);
     },
     async searchMovies() {
-      if (this.$router.currentRoute.name !== "Search") {
-        await this.$router.push({
+      await this.$router.push({
           //kirim untuk merender komponen DetailPage
           name: "Search",
           query: {
@@ -387,15 +386,25 @@ export default {
             title: this.queries.title,
             genre: this.queries.genre,
           },
-        });
-      } else {
-        const queries = {
-          page: this.queries.page,
-          title: this.queries.title,
-          genre: this.queries.genre,
-        };
-        await this.$store.dispatch("searchMovies", queries);
-      }
+        }).catch(() => {});
+      // if (this.$router.currentRoute.name !== "Search") {
+      //   await this.$router.push({
+      //     //kirim untuk merender komponen DetailPage
+      //     name: "Search",
+      //     query: {
+      //       page: this.queries.page,
+      //       title: this.queries.title,
+      //       genre: this.queries.genre,
+      //     },
+      //   }).catch(err => {});
+      // } else {
+      //   const queries = {
+      //     page: this.queries.page,
+      //     title: this.queries.title,
+      //     genre: this.queries.genre,
+      //   };
+      //   await this.$store.dispatch("searchMovies", queries);
+      // }
 
       const queries = {
         page: this.$route.query.page,

@@ -3,9 +3,9 @@ import Vuex from "vuex";
 import router from "../router/index"
 import axios from 'axios'
 import Swal from 'sweetalert2'
-const BASE_URL = "https://iproject2.herokuapp.com"
+// const BASE_URL = "https://iproject2.herokuapp.com"
 //const LOCAL_URL = "http://localhost:3000"
-
+const BASE_URL = "https://p2-iproject-server-1-production.up.railway.app"
 
 Vue.use(Vuex);
 
@@ -328,7 +328,7 @@ export default new Vuex.Store({
          
         
         
-        console.log(response.data, "INI HASIL ADD ")
+        //console.log(response.data, "INI HASIL ADD ")
         //  context.commit("SET_PAYMENT_TOKEN", response.data.token)
         //  console.log(this.state.paymentToken, "INI STATE PAYMENT TOKEN")
         context.commit("SET_PURCHASE_SUCCESS", true)
